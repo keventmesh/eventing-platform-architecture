@@ -1,0 +1,83 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: my-cluster
+  namespace: kafka
+spec:
+  kafka:
+    version: 3.5.0
+    replicas: 3
+    listeners:
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+    readinessProbe:
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+    livenessProbe:
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      log.message.format.version: "3.5"
+      inter.broker.protocol.version: "3.5"
+      auto.create.topics.enable: false
+      min.insync.replicas: "2"
+    storage:
+      type: persistent-claim
+      size: 100Gi
+      deleteClaim: true
+    resources:
+      requests:
+        memory: 1Gi
+        cpu: "300m"
+    template:
+      pod:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: strimzi.io/name
+                      operator: In
+                      values:
+                        - my-cluster-kafka
+                topologyKey: "kubernetes.io/hostname"
+  zookeeper:
+    replicas: 3
+    readinessProbe:
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+    livenessProbe:
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+    storage:
+      type: persistent-claim
+      size: 50Gi
+      deleteClaim: true
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 300m
+    template:
+      pod:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: strimzi.io/name
+                      operator: In
+                      values:
+                        - my-cluster-zookeeper
+                topologyKey: "kubernetes.io/hostname"
+
+  entityOperator:
+    topicOperator: { }
+    userOperator: { }
+  kafkaExporter:
+    topicRegex: ".*"
+    groupRegex: ".*"
