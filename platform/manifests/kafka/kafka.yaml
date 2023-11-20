@@ -8,10 +8,20 @@ spec:
     version: 3.5.0
     replicas: 3
     listeners:
-      - name: tls
+      - name: mtls
+        port: 9092
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+      - name: sasl
         port: 9093
         type: internal
         tls: true
+        authentication:
+          type: scram-sha-512
+    authorization:
+      type: simple
     readinessProbe:
       initialDelaySeconds: 15
       timeoutSeconds: 5
@@ -26,6 +36,7 @@ spec:
       inter.broker.protocol.version: "3.5"
       auto.create.topics.enable: false
       min.insync.replicas: "2"
+      default.replication.factor: 3
     storage:
       type: persistent-claim
       size: 100Gi
