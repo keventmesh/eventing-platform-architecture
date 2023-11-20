@@ -21,6 +21,12 @@ metadata:
     strimzi.io/cluster: my-cluster
 spec:
 
+  template:
+    secret:
+      metadata:
+        annotations:
+          replicator.v1.mittwald.de/replicate-to: "demo-external"
+
   authentication:
     type: tls
   authorization:
