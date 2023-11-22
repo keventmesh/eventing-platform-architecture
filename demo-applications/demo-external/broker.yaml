@@ -1,0 +1,7 @@
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: broker
+  namespace: demo-external
+  annotations:
+    kafka.eventing.knative.dev/external.topic: demo-external-topic

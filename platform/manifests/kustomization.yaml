@@ -7,4 +7,5 @@ resources:
   - github.com/redhat-cop/gitops-catalog/amq-streams-operator/operator/overlays/stable?ref=main
   - knative-eventing/
   - kafka/
+  - kafka-secrets-transformer/
 

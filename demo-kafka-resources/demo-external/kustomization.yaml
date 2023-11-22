@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - demo-external-topic.yaml
   - demo-external-user.yaml
+  - strimzi-secret-transformer.yaml
 

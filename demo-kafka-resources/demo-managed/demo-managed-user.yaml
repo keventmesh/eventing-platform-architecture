@@ -21,12 +21,6 @@ metadata:
     strimzi.io/cluster: my-cluster
 spec:
 
-  template:
-    secret:
-      metadata:
-        annotations:
-          replicator.v1.mittwald.de/replicate-to: "demo-managed"
-
   authentication:
     type: tls
   authorization:
@@ -36,8 +30,8 @@ spec:
     acls:
       - resource:
           type: topic
-          name: "knative-broker-demo-managed-*"
-          patternType: literal
+          name: "knative-broker-demo-managed-"
+          patternType: prefix
         operations:
           - Create
           - Write
@@ -49,10 +43,16 @@ spec:
 
       - resource:
           type: group
-          name: "knative-trigger-demo-managed-*"
-          patternType: literal
+          name: "knative-trigger-demo-managed-"
+          patternType: prefix
         operations:
           - Describe
           - Delete
           - Read
         host: "*"
+
+  quotas:
+    producerByteRate: 1048576 # 1Mi
+    consumerByteRate: 2097152 # 2Mi
+    requestPercentage: 30
+    controllerMutationRate: 10

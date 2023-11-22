@@ -3,4 +3,6 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - broker.yaml
+  - kafka-broker-config.yaml
 
