@@ -2,4 +2,3 @@ apiVersion: eventing.knative.dev/v1
 kind: Broker
 metadata:
   name: broker
-  namespace: demo-managed

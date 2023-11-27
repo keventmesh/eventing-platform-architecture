@@ -15,7 +15,7 @@ function apply() {
 
   while ! kustomize build "${dir}" | kubectl apply -f -;
   do
-    wait_ready
+    wait_ready || sleep 10
     echo "waiting for resource apply to succeed"
     sleep 10
   done

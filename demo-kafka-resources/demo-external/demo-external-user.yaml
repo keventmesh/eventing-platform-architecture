@@ -41,8 +41,11 @@ spec:
 
       - resource:
           type: group
-          name: "knative-trigger-demo-external-"
-          patternType: prefix
+          # TODO(pierDipi) migrate to this config once 1.31 is out
+          # name: "knative-trigger-demo-external-"
+          # patternType: prefix
+          name: "*"
+          patternType: literal
         operations:
           - Describe
           - Delete
