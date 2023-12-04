@@ -4,7 +4,13 @@ metadata:
   name: knative-eventing
   namespace: knative-eventing
 spec:
+
   config:
+
+    # Configure Kafka as default Broker implementation and point each new broker without
+    # spec.config to a namespace-local `kafka-broker-config`.
+    #
+    # The ConfigMap is created in each namespace by an administrator or another operator
     config-br-defaults:
       default-br-config: |
         clusterDefault:
@@ -12,3 +18,18 @@ spec:
           apiVersion: v1
           kind: ConfigMap
           name: kafka-broker-config
+
+    config-tracing:
+      backend: "zipkin"
+      zipkin-endpoint: "http://jaeger-collector.openshift-distributed-tracing.svc:9411/api/v2/spans"
+      sample-rate: "0.1"
+      debug: "false"
+
+  workloads:
+    # This is a workaround as currently tracing for PingSource wouldn't work without this
+    - name: pingsource-mt-adapter
+      env:
+        - container: dispatcher
+          envVars:
+            - name: NAME
+              value: pingsource-mt-adapter

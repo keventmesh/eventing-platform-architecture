@@ -4,7 +4,27 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - kafka.yaml
+  - kafka-metrics.yaml
   - kafka-prometheus.yaml
   - kafka-podmonitor.yaml
   - kafka-prometheusrule.yaml
-  - kafka-dashboard.yaml
+
+configMapGenerator:
+
+  - name: grafana-dashboard-definition-strimzi-kafka
+    namespace: openshift-config-managed
+    files:
+      - strimzi-kafka-cluster.json
+    options:
+      disableNameSuffixHash: true
+      labels:
+        console.openshift.io/dashboard: "true"
+
+  - name: grafana-dashboard-definition-strimzi-kafka-exporter
+    namespace: openshift-config-managed
+    files:
+      - strimzi-kafka-exporter.json
+    options:
+      disableNameSuffixHash: true
+      labels:
+        console.openshift.io/dashboard: "true"

@@ -1,0 +1,27 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+  namespace: openshift-distributed-tracing
+spec:
+  strategy: production
+  ingress:
+    security: oauth-proxy
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      nodeCount: 2
+      redundancyPolicy: SingleRedundancy
+      resources:
+        requests:
+          cpu: 500m
+          memory: 1Gi
+        limits:
+          memory: 4Gi
+    esIndexCleaner:
+      enabled: true
+      numberOfDays: 7
+      schedule: 55 23 * * *
+    esRollover:
+      schedule: '*/30 * * * *'
+

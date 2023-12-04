@@ -5,6 +5,9 @@ resources:
   - github.com/redhat-cop/gitops-catalog/serverless-operator/operator/overlays/stable?ref=main
   - github.com/redhat-cop/gitops-catalog/serverless-operator/instance/knative-serving/overlays/default?ref=main
   - github.com/redhat-cop/gitops-catalog/amq-streams-operator/operator/overlays/stable?ref=main
+  - github.com/redhat-cop/gitops-catalog/elasticsearch-operator/overlays/stable?ref=main
+  - github.com/redhat-cop/gitops-catalog/jaeger-operator/overlays/stable?ref=main
+  - jaeger/
   - knative-eventing/
   - kafka/
   - kafka-secrets-transformer/
