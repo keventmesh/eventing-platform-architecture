@@ -7,7 +7,7 @@ resources:
   - namespace.yaml
   - pingsource.yaml
   - broker.yaml
-  - kafka-broker-config.yaml
   - kservice.yaml
   - trigger.yaml
+  - broker-dead-letter-sink.yaml
 

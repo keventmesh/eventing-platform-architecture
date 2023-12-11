@@ -26,11 +26,25 @@ spec:
   authorization:
     type: simple
 
-    # Example ACL rules for Knative Brokers for Apache Kafka in the `demo-managed` namespace.
     acls:
+      # Example ACL rules for Knative Brokers for Apache Kafka in the `demo-managed` namespace.
       - resource:
           type: topic
           name: "knative-broker-demo-managed-"
+          patternType: prefix
+        operations:
+          - Create
+          - Write
+          - Describe
+          - DescribeConfigs
+          - Read
+          - Delete
+        host: "*"
+
+      # Example ACL rules for Knative Channels for Apache Kafka in the `demo-managed` namespace.
+      - resource:
+          type: topic
+          name: "knative-channel-demo-managed-"
           patternType: prefix
         operations:
           - Create
@@ -55,7 +69,7 @@ spec:
         host: "*"
 
   quotas:
-    producerByteRate: 1048576 # 1Mi
-    consumerByteRate: 2097152 # 2Mi
+    producerByteRate: 12580000 # 12Mi
+    consumerByteRate: 37750000 # 36Mi
     requestPercentage: 30
     controllerMutationRate: 10

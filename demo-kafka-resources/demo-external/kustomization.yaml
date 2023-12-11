@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - demo-external-topic.yaml
+  - demo-external-topic-dead-letter-sink.yaml
   - demo-external-user.yaml
   - strimzi-secret-transformer.yaml
 

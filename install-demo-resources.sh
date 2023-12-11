@@ -25,9 +25,10 @@ function apply() {
   wait_ready
 }
 
-echo "==================================="
-echo "== Deploying platform components =="
-echo "==================================="
+echo "=============================="
+echo "== Deploying demo resources =="
+echo "=============================="
 
-apply "${current_dir}/platform/manifests"
+apply "${current_dir}/demo-kafka-resources"
+apply "${current_dir}/demo-applications"
 

@@ -4,3 +4,13 @@ metadata:
   name: broker
   annotations:
     kafka.eventing.knative.dev/external.topic: demo-external-topic
+spec:
+  delivery:
+    deadLetterSink:
+      ref:
+        apiVersion: eventing.knative.dev/v1alpha1
+        kind: KafkaSink
+        name: kafka-sink-dead-letter-sink
+    retry: 10
+    backoffPolicy: exponential
+    backoffDelay: PT0.2S

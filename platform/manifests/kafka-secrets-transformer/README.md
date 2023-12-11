@@ -1,8 +1,8 @@
 ## Kafka secrets transformer
 
-Kafka secrets transformer is a Strimzi supporting service based
-on https://github.com/kluctl/kluctl which makes `KafkaUser` secrets
-compatible with Knative Kafka Broker secrets format.
+Kafka secrets transformer is a Strimzi supporting service based on https://github.com/kluctl/kluctl
+which makes `KafkaUser` secrets compatible with Knative Kafka Broker secrets format and distributes
+them to user's namespaces.
 
 ### Updating manifests
 

@@ -18,6 +18,10 @@ spec:
           apiVersion: v1
           kind: ConfigMap
           name: kafka-broker-config
+          delivery:
+            retry: 10
+            backoffPolicy: exponential
+            backoffDelay: PT0.2S
 
     config-tracing:
       backend: "zipkin"

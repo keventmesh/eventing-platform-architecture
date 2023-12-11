@@ -1,0 +1,12 @@
+apiVersion: eventing.knative.dev/v1alpha1
+kind: KafkaSink
+metadata:
+  name: kafka-sink-dead-letter-sink
+spec:
+  topic: demo-external-topic-dead-letter-sink
+  bootstrapServers:
+    - my-cluster-kafka-bootstrap.kafka:9092
+  auth:
+    secret:
+      ref:
+        name: kafka-broker-secret

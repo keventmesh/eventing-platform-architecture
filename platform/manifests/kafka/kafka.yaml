@@ -1,3 +1,8 @@
+# === Notice ===
+# The resource requirements, limits and storage are on the very low-end (for demo purposes),
+# it's recommended to increase them.
+#
+
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:

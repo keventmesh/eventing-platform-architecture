@@ -40,6 +40,17 @@ spec:
         host: "*"
 
       - resource:
+          type: topic
+          name: "demo-external-topic-dead-letter-sink"
+          patternType: literal
+        operations:
+          - Write
+          - Describe
+          - DescribeConfigs
+          - Read
+        host: "*"
+
+      - resource:
           type: group
           # TODO(pierDipi) migrate to this config once 1.31 is out
           # name: "knative-trigger-demo-external-"
@@ -53,7 +64,7 @@ spec:
         host: "*"
 
   quotas:
-    producerByteRate: 1048576 # 1Mi
-    consumerByteRate: 2097152 # 2Mi
+    producerByteRate: 12580000 # 12Mi
+    consumerByteRate: 37750000 # 36Mi
     requestPercentage: 30
     controllerMutationRate: 10
