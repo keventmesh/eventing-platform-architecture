@@ -10,4 +10,5 @@ resources:
   - kservice.yaml
   - trigger.yaml
   - broker-dead-letter-sink.yaml
+  - timersource.yaml
 
