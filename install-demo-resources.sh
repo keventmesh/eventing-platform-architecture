@@ -5,11 +5,11 @@ set -euo pipefail
 current_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 function wait_ready() {
-    kubectl wait subscriptions.operators.coreos.com --for=condition=CatalogSourcesUnhealthy=false --timeout=20m -n openshift-operators-redhat elasticsearch-operator || return $?
-    kubectl wait subscriptions.operators.coreos.com --for=condition=CatalogSourcesUnhealthy=false --timeout=20m -n openshift-distributed-tracing jaeger-product || return $?
-    kubectl wait subscriptions.operators.coreos.com --for=condition=CatalogSourcesUnhealthy=false --timeout=20m -n openshift-operators amq-streams || return $?
-    kubectl wait subscriptions.operators.coreos.com --for=condition=CatalogSourcesUnhealthy=false --timeout=20m -n openshift-serverless serverless-operator || return $?
-    kubectl wait knativeeventing knative-eventing --for=condition=Ready=true --timeout=20m -n knative-eventing || return $?
+    kubectl wait brokers.eventing.knative.dev --for=condition=Ready=true --timeout=20m -A --all || return $?
+    kubectl wait triggers.eventing.knative.dev --for=condition=Ready=true --timeout=20m -A --all || return $?
+    kubectl wait kafkasinks.eventing.knative.dev --for=condition=Ready=true --timeout=20m -A --all || return $?
+    kubectl wait pingsources.sources.knative.dev --for=condition=Ready=true --timeout=20m -A --all || return $?
+#    kubectl wait kameletbindings.camel.apache.org --for=condition=Ready=true --timeout=20m -A --all || return $?
 }
 
 function apply() {

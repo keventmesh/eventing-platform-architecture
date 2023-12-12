@@ -3,6 +3,19 @@
 Reference architecture for offering Eventing capabilities in Kubernetes or OpenShift as a platform
 team using Knative Eventing with Apache Kafka.
 
+## How to use this repository
+
+This repository is meant to provide guidance on configuring OpenShift operators to offer Eventing
+capabilities in Kubernetes or OpenShift as a platform team using Knative Eventing with Apache Kafka
+but resource requests, limits and storage are on the _very_ low-end for demo purposes and to avoid
+wasting resources during demos.
+
+For production deployments, we recommend revisiting "sizing" related subjects, such as:
+
+- Knative Eventing resource requests, limits, and replicas
+- Apache Kafka cluster and Strimzi operators resource requests, limits, storage size, and replicas
+- Jaeger resource requests, limits, storage size, and replicas
+
 ## Installation on OpenShift
 
 ### Prerequisites

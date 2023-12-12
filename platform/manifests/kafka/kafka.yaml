@@ -1,5 +1,5 @@
 # === Notice ===
-# The resource requirements, limits and storage are on the very low-end (for demo purposes),
+# The resource requirements, limits and storage are on the _very_ low-end (for demo purposes),
 # it's recommended to increase them.
 #
 
@@ -60,7 +60,7 @@ spec:
     resources:
       requests:
         memory: 1Gi
-        cpu: "300m"
+        cpu: "200m"
 
     template:
       pod:
@@ -92,7 +92,7 @@ spec:
     resources:
       requests:
         memory: 500Mi
-        cpu: 300m
+        cpu: 200m
 
     metricsConfig:
       type: jmxPrometheusExporter

@@ -14,7 +14,7 @@ spec:
       redundancyPolicy: SingleRedundancy
       resources:
         requests:
-          cpu: 500m
+          cpu: 300m
           memory: 1Gi
         limits:
           memory: 4Gi
