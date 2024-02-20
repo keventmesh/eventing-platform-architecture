@@ -7,6 +7,7 @@ resources:
   - github.com/redhat-cop/gitops-catalog/amq-streams-operator/operator/overlays/stable?ref=main
   - github.com/redhat-cop/gitops-catalog/elasticsearch-operator/overlays/stable?ref=main
   - github.com/redhat-cop/gitops-catalog/jaeger-operator/overlays/stable?ref=main
+  - github.com/redhat-cop/gitops-catalog/red-hat-camel-k/operator/overlays/1.10.x?ref=main
   - jaeger/
   - knative-eventing/
   - kafka/
