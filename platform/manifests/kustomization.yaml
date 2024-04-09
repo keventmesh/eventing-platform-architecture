@@ -12,4 +12,6 @@ resources:
   - knative-eventing/
   - kafka/
   - kafka-secrets-transformer/
+  - service-registry/
+  - developer-hub/
 

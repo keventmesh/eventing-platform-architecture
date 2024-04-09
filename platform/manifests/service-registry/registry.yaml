@@ -1,0 +1,14 @@
+apiVersion: registry.apicur.io/v1
+kind: ApicurioRegistry
+metadata:
+  name: apicurio-registry
+  namespace: apicurio-registry
+spec:
+  configuration:
+    persistence: "kafkasql"
+    kafkasql:
+      bootstrapServers: "my-cluster-kafka-bootstrap.kafka.svc:9092"
+      security:
+        tls:
+          keystoreSecretName: kafka-broker-secret
+          truststoreSecretName: kafka-broker-secret
