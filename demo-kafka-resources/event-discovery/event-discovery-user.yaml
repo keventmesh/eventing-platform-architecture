@@ -1,0 +1,75 @@
+# Copyright 2020 The Knative Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: event-discovery-user
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+
+    acls:
+      # Example ACL rules for Knative Brokers for Apache Kafka in the `event-discovery` namespace.
+      - resource:
+          type: topic
+          name: "knative-broker-event-discovery-"
+          patternType: prefix
+        operations:
+          - Create
+          - Write
+          - Describe
+          - DescribeConfigs
+          - Read
+          - Delete
+        host: "*"
+
+      # Example ACL rules for Knative Channels for Apache Kafka in the `event-discovery` namespace.
+      - resource:
+          type: topic
+          name: "knative-channel-event-discovery-"
+          patternType: prefix
+        operations:
+          - Create
+          - Write
+          - Describe
+          - DescribeConfigs
+          - Read
+          - Delete
+        host: "*"
+
+      - resource:
+          type: group
+          # TODO(pierDipi) migrate to this config once 1.31 is out
+          # name: "knative-trigger-event-discovery-"
+          # patternType: prefix
+          name: "*"
+          patternType: literal
+        operations:
+          - Describe
+          - Delete
+          - Read
+        host: "*"
+
+  quotas:
+    producerByteRate: 12580000 # 12Mi
+    consumerByteRate: 37750000 # 36Mi
+    requestPercentage: 30
+    controllerMutationRate: 10

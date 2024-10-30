@@ -8,6 +8,7 @@ spec:
   config:
     config-features:
       backstage-backend: enabled
+      eventtype-auto-create: enabled
 
     # Configure Kafka as default Broker implementation and point each new broker without
     # spec.config to a namespace-local `kafka-broker-config`.

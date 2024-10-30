@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    /* https://zippystarter.com/tools/shadcn-ui-theme-generator */
+    :root  {
+        --background: 134 0% 100%;
+        --foreground: 134 0% 10%;
+        --card: 134 0% 100%;
+        --card-foreground: 134 0% 15%;
+        --popover: 134 0% 100%;
+        --popover-foreground: 134 95% 10%;
+        --primary: 134 52% 47%;
+        --primary-foreground: 0 0% 100%;
+        --primary-linear-gradient: linear-gradient(270deg, #ff6ec4, #7873f5, #4cbbb9, #ff6ec4);
+        --secondary: 134 10% 90%;
+        --secondary-foreground: 0 0% 0%;
+        --muted: 96 10% 95%;
+        --muted-foreground: 134 0% 40%;
+        --accent: 96 10% 90%;
+        --accent-foreground: 134 0% 15%;
+        --destructive: 0 50% 50%;
+        --destructive-foreground: 134 0% 100%;
+        --border: 134 20% 82%;
+        --input: 134 20% 50%;
+        --ring: 134 52% 47%;
+        --radius: 1rem;
+    }
+    .dark, :root[class~="dark"]  {
+        --background: 134 10% 10%;
+        --foreground: 134 0% 100%;
+        --card: 134 0% 10%;
+        --card-foreground: 134 0% 100%;
+        --popover: 134 10% 5%;
+        --popover-foreground: 134 0% 100%;
+        --primary: 134 52% 47%;
+        --primary-foreground: 0 0% 100%;
+        --primary-linear-gradient: linear-gradient(270deg, #ff6ec4, #7873f5, #4cbbb9, #ff6ec4);
+        --secondary: 134 10% 20%;
+        --secondary-foreground: 0 0% 100%;
+        --muted: 96 10% 25%;
+        --muted-foreground: 134 0% 65%;
+        --accent: 96 10% 25%;
+        --accent-foreground: 134 0% 95%;
+        --destructive: 0 50% 50%;
+        --destructive-foreground: 134 0% 100%;
+        --border: 134 20% 50%;
+        --input: 134 20% 50%;
+        --ring: 134 52% 47%;
+        --radius: 1rem;
+    }
+
+    @keyframes linear-gradient-animation {
+        0% {
+            background-position: 0 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
+
+    .gradient-highlight {
+        background: var(--primary-linear-gradient);
+        background-size: 300% 100%; /* Initial background size */
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: linear-gradient-animation 8s ease infinite;
+    }
+
+    /* Responsive adjustments for larger screens */
+    @media (min-width: 768px) {
+        .gradient-highlight {
+            background: var(--primary-linear-gradient);
+            background-size: 300% 100%; /* Initial background size */
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: linear-gradient-animation 8s ease infinite;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .gradient-highlight {
+            background: var(--primary-linear-gradient);
+            background-size: 300% 100%; /* Initial background size */
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: linear-gradient-animation 8s ease infinite;
+        }
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}

@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ui
+  labels:
+    app: ui
+spec:
+  to:
+    kind: Service
+    name: ui
+  port:
+    targetPort: 3000
+  tls:
+    termination: edge # Enable TLS with edge termination
+  wildcardPolicy: None

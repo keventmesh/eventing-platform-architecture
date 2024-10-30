@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: mailpit
+  labels:
+    app: mailpit
+spec:
+  to:
+    kind: Service
+    name: mailpit
+  port:
+    targetPort: 8025 # Route to the web interface port
+  tls:
+    termination: edge # Enables HTTPS with edge termination
+  wildcardPolicy: None

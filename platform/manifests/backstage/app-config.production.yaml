@@ -1,0 +1,93 @@
+app:
+  title: Knative Backstage App
+  baseUrl: ${BACKSTAGE_BASE_URL}
+
+organization:
+  name: Knative
+
+backend:
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/auth/service-to-service-auth for
+  # information on the format
+  # auth:
+  #   keys:
+  #     - secret: ${BACKEND_SECRET}
+  baseUrl: ${BACKSTAGE_BASE_URL}
+  listen:
+    port: "7007"
+  csp:
+    connect-src: [ "'self'", 'http:', 'https:' ]
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: ${BACKSTAGE_BASE_URL}
+    methods: [ GET, HEAD, PATCH, POST, PUT, DELETE ]
+    credentials: true
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is stored in app-config.production.yaml
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
+# Reference documentation http://backstage.io/docs/features/techdocs/configuration
+# Note: After experimenting with basic setup, use CI/CD to generate docs
+# and an external cloud storage when deploying TechDocs for production use-case.
+# https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
+techdocs:
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'local' # Alternatives - 'local'
+  publisher:
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+catalog:
+  processingInterval:
+    seconds: 5
+  providers:
+    knativeEventMesh:
+      dev:
+        token: ${KNATIVE_EVENT_MESH_TOKEN}
+        baseUrl: ${KNATIVE_EVENT_MESH_BACKEND}
+        schedule: # optional; same options as in TaskScheduleDefinition
+          # supports cron, ISO duration, "human duration" as used in code
+          frequency: { minutes: 1 }
+          # supports ISO duration, "human duration" as used in code
+          timeout: { minutes: 1 }
+    githubOrg:
+      id: production
+      githubUrl: https://github.com
+      orgs: ['keventmesh']
+      schedule:
+        initialDelay: { seconds: 10 }
+        frequency: { hours: 4 }
+        timeout: { minutes: 50 }
+  locations:
+    - type: file
+      target: templates/location.yaml
+      rules:
+        - allow: [ Location, Template ]
+
+auth:
+  environment: production
+  providers:
+    github:
+      production:
+        clientId: ${AUTH_ORG_CLIENT_ID}
+        clientSecret: ${AUTH_ORG_CLIENT_SECRET}
+        ## uncomment if using GitHub Enterprise
+        # enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
+        signIn:
+          resolvers:
+            # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers
+            - resolver: usernameMatchingUserEntityName
+
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - appId: ${AUTH_ORG_APP_ID}
+          clientId: ${AUTH_ORG_CLIENT_ID}
+          clientSecret: ${AUTH_ORG_CLIENT_SECRET}
+          privateKey: ${AUTH_ORG_PRIVATE_KEY}
+          webhookSecret: ${AUTH_ORG_WEBHOOK_SECRET}

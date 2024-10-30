@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: broker
+spec:
+  delivery:
+    deadLetterSink:
+      ref:
+        apiVersion: eventing.knative.dev/v1
+        kind: Broker
+        name: broker-dead-letter-sink
+    retry: 10
+    backoffPolicy: exponential
+    backoffDelay: PT0.2S

@@ -13,5 +13,5 @@ resources:
   - kafka/
   - kafka-secrets-transformer/
   - service-registry/
-  - developer-hub/
+  - backstage/
 

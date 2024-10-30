@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: event-discovery
+
+configMapGenerator:
+  - name: event-discovery-config
+    envs:
+      - .env
+    options:
+      disableNameSuffixHash: true
+
+resources:
+  - namespace.yaml
+  - broker.yaml
+  - broker-dead-letter-sink.yaml
+  - ui-deployment.yaml
+  - ui-service.yaml
+  - ui-route.yaml
+  - ui-sinkbinding.yaml
+  - mailpit-deployment.yaml
+  - mailpit-service.yaml
+  - mailpit-route.yaml
+
