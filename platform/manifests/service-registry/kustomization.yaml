@@ -3,8 +3,8 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - demo-external-topic.yaml
-  - demo-external-topic-dead-letter-sink.yaml
-  - demo-external-user.yaml
+  - subscription.yaml
+  - registry.yaml
+  - registry-kafkauser.yaml
   - strimzi-secret-transformer.yaml
 

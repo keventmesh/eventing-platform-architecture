@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backstage
+  labels:
+    app: backstage
+spec:
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      containers:
+        - name: backstage
+          image: quay.io/pierdipi/backstage:kubecon-na-2024-templates-node20
+          imagePullPolicy: Always
+          command:
+            - node
+          args:
+            - packages/backend
+            - --config
+            - /config/app-config.production.yaml
+          ports:
+            - containerPort: 7007
+
+          # https://backstage.io/docs/backend-system/core-services/root-health/
+#          readinessProbe:
+#            httpGet:
+#              port: 7007
+#              path: /.backstage/health/v1/readiness
+#            periodSeconds: 3
+#            initialDelaySeconds: 5
+#            successThreshold: 3
+#            failureThreshold: 5
+#          livenessProbe:
+#            httpGet:
+#              port: 7007
+#              path: /.backstage/health/v1/liveness
+#            periodSeconds: 5
+#            initialDelaySeconds: 5
+#            failureThreshold: 5
+
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: LOG_LEVEL
+              value: debug
+            - name: KNATIVE_EVENT_MESH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: token
+                  name: eventmesh-backend-user-secret
+            - name: KNATIVE_EVENT_MESH_BACKEND
+              value: "http://eventmesh-backend.knative-eventing.svc:8080"
+            - name: BACKSTAGE_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: BACKSTAGE_BASE_URL
+                  name: app-config
+            - name: AUTH_ORG_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  key: AUTH_ORG_APP_ID
+                  name: app-config
+            - name: AUTH_ORG_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: AUTH_ORG_CLIENT_ID
+                  name: app-config
+            - name: AUTH_ORG_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: AUTH_ORG_CLIENT_SECRET
+                  name: app-config
+            - name: AUTH_ORG_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: AUTH_ORG_PRIVATE_KEY
+                  name: app-config
+            - name: AUTH_ORG_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: AUTH_ORG_WEBHOOK_SECRET
+                  name: app-config
+          securityContext: # OpenShift requires specific security contexts for non-root containers
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - mountPath: /config
+              name: app-config
+              readOnly: true
+      volumes:
+        - name: app-config
+          secret:
+            secretName: app-config
+      restartPolicy: Always

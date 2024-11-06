@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "title": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["id", "title", "amount"],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "string",
+      "enum": ["removed", "added"]
+    }
+  },
+  "required": ["product"],
+  "additionalProperties": false
+}

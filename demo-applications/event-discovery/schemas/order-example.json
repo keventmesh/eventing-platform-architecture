@@ -1,0 +1,36 @@
+{
+  "orderId": "12345",
+  "customer": {
+    "customerId": "CUST001",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "address": {
+      "street": "456 Elm St",
+      "city": "Salt Lake City",
+      "state": "UT",
+      "postalCode": "84101",
+      "country": "USA"
+    }
+  },
+  "orderItems": [
+    {
+      "productId": "PROD001",
+      "productName": "Wireless Headphones",
+      "quantity": 1,
+      "price": 99.99
+    },
+    {
+      "productId": "PROD002",
+      "productName": "USB-C Charger",
+      "quantity": 2,
+      "price": 19.99
+    }
+  ],
+  "orderId": "T123456789",
+  "orderDate": "2024-10-09T14:30:00Z",
+  "payment": {
+    "method": "credit_card",
+    "transactionId": "T123456789"
+  },
+  "totalAmount": 139.97
+}

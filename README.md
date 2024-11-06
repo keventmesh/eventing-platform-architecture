@@ -22,6 +22,15 @@ For production deployments, we recommend revisiting "sizing" related subjects, s
 
 - Administrator access to an OpenShift cluster
 
+#### Create a GitHub application for Backstage
+
+```shell
+backstage-cli create-github-app keventmesh  # Replace `keventmesh` with your org name
+```
+
+and then place the credentials file in the parent directory of this repository in a file
+called `github-app-backstage-keventmesh-credentials.yaml`.
+
 ### Installation
 
 ```shell
