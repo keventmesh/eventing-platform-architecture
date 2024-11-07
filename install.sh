@@ -10,6 +10,7 @@ function write_backstage_env_file {
   # The prefix is basically `https://<backstage-route-name>-<backstage-route-namespace>.`
   local env_file="${current_dir}/platform/manifests/backstage/secrets/.env"
 
+  mkdir -p $(dirname "${env_file}")
   echo "BACKSTAGE_BASE_URL=https://backstage-route-backstage.${cluster_domain}" > "${env_file}"
 
   github_app_file="${current_dir}/../github-app-backstage-keventmesh-credentials.yaml"
